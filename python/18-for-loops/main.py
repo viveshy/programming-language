@@ -12,14 +12,18 @@ In this section, we will learn about the following concepts related to for loops
 fruits = ['apple', 'banana', 'cherry']
 
 print('Iterating over a list of fruits:')
+# Expected Output: Iterating over a list of fruits:
 for fruit in fruits:
     print(fruit)
+    # Expected Output: apple, banana, cherry (each on new line)
 
 # 2. For loop with range
 # ______________________
 print('\nUsing range to iterate over numbers:')
+# Expected Output: Using range to iterate over numbers:
 for i in range(5):
     print(f'Current number: {i}')
+    # Expected Output: Current number: 0, 1, 2, 3, 4 (each on new line)
 
 # 3. Nested for loops
 # _________________________
@@ -40,5 +44,7 @@ else:
 # 5. For loop with enumerate
 # ___________________________
 print('\nUsing a for loop with enumerate:')
+# Expected Output: Using a for loop with enumerate:
 for index, fruit in enumerate(fruits):
     print(f'Index {index}: {fruit}')
+    # Expected Output: Index 0: apple, Index 1: banana, Index 2: cherry

@@ -12,3 +12,4 @@ message = f'{first_name} [{last_name}] is a coder.'
 
 # Display the formatted string
 print('Formatted string example:', message)
+# Expected Output: Formatted string example: John [Smith] is a coder.

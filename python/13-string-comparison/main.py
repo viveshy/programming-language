@@ -18,36 +18,49 @@ leading_whitespace_greeting = "   Hello, World!"  # String with leading whitespa
 # 1. Equality Check (==)
 # ________________________
 print(f'Checking equality:')
+# Expected Output: Checking equality:
+
 if greeting_message == duplicate_greeting:
     print(f'"{greeting_message}" is equal to "{duplicate_greeting}"')
+    # Expected Output: "Hello, World!" is equal to "Hello, World!"
 else:
     print(f'"{greeting_message}" is not equal to "{duplicate_greeting}"')
 
 # 2. Inequality Check (!=)
 # __________________________
 print(f'\nChecking inequality:')
+# Expected Output: Checking inequality:
+
 if greeting_message != different_greeting:
     print(f'"{greeting_message}" is not equal to "{different_greeting}"')
+    # Expected Output: "Hello, World!" is not equal to "Hello, Python!"
 else:
     print(f'"{greeting_message}" is equal to "{different_greeting}"')
 
 # 3. Case Sensitivity
 # _____________________
 print(f'\nChecking case sensitivity:')
+# Expected Output: Checking case sensitivity:
+
 if greeting_message == case_different_greeting:
     print(f'"{greeting_message}" is equal to "{case_different_greeting}" (case insensitive)')
 else:
     print(f'"{greeting_message}" is not equal to "{case_different_greeting}" (case sensitive)')
+    # Expected Output: "Hello, World!" is not equal to "hello, world!" (case sensitive)
 
 # 4. Whitespace Considerations
 # ______________________________
 print(f'\nChecking whitespace considerations:')
+# Expected Output: Checking whitespace considerations:
+
 if greeting_message.strip() == trailing_whitespace_greeting.strip():
     print(f'"{greeting_message.strip()}" is equal to "{trailing_whitespace_greeting.strip()}" (ignoring trailing whitespace)')
+    # Expected Output: "Hello, World!" is equal to "Hello, World!" (ignoring trailing whitespace)
 else:
     print(f'"{greeting_message.strip()}" is not equal to "{trailing_whitespace_greeting.strip()}"')
 
 if greeting_message.strip() == leading_whitespace_greeting.strip():
     print(f'"{greeting_message.strip()}" is equal to "{leading_whitespace_greeting.strip()}" (ignoring leading whitespace)')
+    # Expected Output: "Hello, World!" is equal to "Hello, World!" (ignoring leading whitespace)
 else:
     print(f'"{greeting_message.strip()}" is not equal to "{leading_whitespace_greeting.strip()}"')

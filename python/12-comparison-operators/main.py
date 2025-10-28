@@ -16,24 +16,30 @@ c = 15
 # 1. Equal to (==)
 # ___________________
 print(f'Checking if {a} is equal to {b}:')
+# Expected Output: Checking if 15 is equal to 10:
 if a == b:
     print(f'{a} is equal to {b}')
 else:
     print(f'{a} is not equal to {b}')
+    # Expected Output: 15 is not equal to 10
 
 # 2. Not equal to (!=)
 # ______________________
 print(f'\nChecking if {a} is not equal to {c}:')
+# Expected Output: Checking if 15 is not equal to 15:
 if a != c:
     print(f'{a} is not equal to {c}')
 else:
     print(f'{a} is equal to {c}')
+    # Expected Output: 15 is equal to 15
 
 # 3. Greater than (>)
 # ______________________
 print(f'\nChecking if {a} is greater than {b}:')
+# Expected Output: Checking if 15 is greater than 10:
 if a > b:
     print(f'{a} is greater than {b}')
+    # Expected Output: 15 is greater than 10
 else:
     print(f'{a} is not greater than {b}')
 
