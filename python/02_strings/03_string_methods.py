@@ -11,7 +11,8 @@ Methods:
     3) .find('string_to_look_up') - Returns the index of the first occurrence of the specified substring.
     4) .replace('old_string', 'new_string') - Replaces occurrences of the old substring with the new substring.
     5) 'string-sequence' in string_variable - Returns a boolean indicating whether the specified substring is present in the string.
-    6) .strip(), .lstrip(), .rstrip() - Remove spaces and newlines from the ends of the string.
+    6) .strip(), .lstrip(), .rstrip() - Remove spaces and newlines from the ends of the string,
+       or the characters you name, like .strip('-').
     7) .isdigit(), .isnumeric(), .isalpha(), .isalnum() - Check what kind of characters the string has.
 """
 
@@ -52,6 +53,8 @@ assert ('mission' in movie) is False  # case sensitive: 'M' is not 'm'
 assert '  hi there \n'.strip() == 'hi there'
 assert '  hi '.lstrip() == 'hi '  # left end only
 assert '  hi '.rstrip() == '  hi'  # right end only
+assert '--hi--'.strip('-') == 'hi'  # name the characters to remove
+assert 'xyhiyx'.strip('xy') == 'hi'  # each character in 'xy' is removed, in any order
 
 # 7. CHARACTER CHECKS
 # _______________
