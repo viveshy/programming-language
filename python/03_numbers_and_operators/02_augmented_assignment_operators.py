@@ -6,40 +6,38 @@ Examples of augmented assignment operators in Python are:
     - Subtraction (-=): x -= y is equivalent to x = x - y
     - Multiplication (*=): x *= y is equivalent to x = x * y
     - Division (/=): x /= y is equivalent to x = x / y
+    - Floor division (//=): x //= y is equivalent to x = x // y
     - Modulus (%=): x %= y is equivalent to x = x % y
-
 """
 
-# Examples of augmented assignment operators in action
 x = 10
-print('Initial value of x:', x)
-# Expected Output: Initial value of x: 10
 
 # Addition (+=)
 x += 5  # equivalent to x = x + 5
-print('After x += 5:', x)
-# Expected Output: After x += 5: 15
+assert x == 15
 
 # Subtraction (-=)
 x -= 3  # equivalent to x = x - 3
-print('After x -= 3:', x)
-# Expected Output: After x -= 3: 12
+assert x == 12
 
 # Multiplication (*=)
 x *= 2  # equivalent to x = x * 2
-print('After x *= 2:', x)
-# Expected Output: After x *= 2: 24
+assert x == 24
 
-# Division (/=)
+# Division (/=) turns x into a float, like / always does
 x /= 4  # equivalent to x = x / 4
-print('After x /= 4:', x)
-# Expected Output: After x /= 4: 6.0
+assert x == 6.0
+assert type(x) is float
+
+# Floor division (//=) keeps an int an int
+n = 24
+n //= 5  # equivalent to n = n // 5
+assert n == 4
+assert type(n) is int
 
 # Modulus (%=)
 y = 17
-print('\nInitial value of y:', y)
-# Expected Output: Initial value of y: 17
-
 y %= 5  # equivalent to y = y % 5
-print('After y %= 5:', y)
-# Expected Output: After y %= 5: 2
+assert y == 2
+
+print('All checks passed.')

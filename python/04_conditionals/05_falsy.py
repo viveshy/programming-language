@@ -1,35 +1,48 @@
 """
-In this section, we will explore the following values in Python:
-1. Zero (0)
+In this section, we will explore "falsy" values: values that count as False
+when used in an if statement or with `not`.
+
+Falsy values:
+1. Zero (0 and 0.0)
 2. Boolean False
 3. Empty String ("")
 4. None
-5. Empty Array (List)
+5. Empty list [], empty dict {} and empty set set()
 
-We will also see how the `not` operator treats each of these values.
+Everything else is "truthy", including some values that look empty but aren't.
 """
 
 # 1. Zero (0)
-zero_value = 0
-print(f'not of Zero (0): {not zero_value}')
-# Expected Output: not of Zero (0): True
+assert bool(0) is False
+assert bool(0.0) is False
+assert (not 0) is True
 
 # 2. Boolean False
-false_value = False
-print(f'not of Boolean False: {not false_value}')
-# Expected Output: not of Boolean False: True
+assert (not False) is True
 
 # 3. Empty String ("")
-empty_string = ""
-print(f'not of Empty String (""): {not empty_string}')
-# Expected Output: not of Empty String (""): True
+assert bool('') is False
 
 # 4. None
-none_value = None
-print(f'not of None: {not none_value}')
-# Expected Output: not of None: True
+assert bool(None) is False
 
-# 5. Empty Array (List)
-empty_array = []
-print(f'not of Empty Array (List): {not empty_array}')
-# Expected Output: not of Empty Array (List): True
+# 5. Empty collections
+assert bool([]) is False
+assert bool({}) is False
+assert bool(set()) is False
+
+# Truthy values that look empty but are not
+assert bool('0') is True  # a string with one character, '0'
+assert bool(' ') is True  # a string with one space
+assert bool([0]) is True  # a list with one item in it
+
+# This is why `if items:` is a common way to say "if the list is not empty"
+items = []
+if items:
+    status = 'has items'
+else:
+    status = 'empty'
+
+assert status == 'empty'
+
+print('All checks passed.')

@@ -4,32 +4,32 @@ In this section, we will learn about the following concepts related to if statem
 2. if-else statement
 3. if-elif-else statement
 4. Nested if statements
+
+Each example stores which branch ran in a variable, so an assert can check it.
 """
 
 # 1. Basic if statement
 # ______________________
 number = 10
 
-print(f'Checking if {number} is positive:')
-# Expected Output: Checking if 10 is positive:
+sign = 'unknown'
 if number > 0:
-    print(f'{number} is a positive number.')
-    # Expected Output: 10 is a positive number.
+    sign = 'positive'
+
+assert sign == 'positive'
 
 # 2. if-else statement
 # ______________________
-print(f'\nChecking if {number} is even or odd:')
-# Expected Output: Checking if 10 is even or odd:
 if number % 2 == 0:
-    print(f'{number} is an even number.')
-    # Expected Output: 10 is an even number.
+    parity = 'even'
 else:
-    print(f'{number} is an odd number.')
+    parity = 'odd'
+
+assert parity == 'even'
 
 # 3. if-elif-else statement
 # ___________________________
-print('\nGrading System:')
-# Expected Output: Grading System:
+# Python checks the conditions from the top and runs only the FIRST one that is true
 score = 85
 
 if score >= 90:
@@ -43,24 +43,21 @@ elif score >= 60:
 else:
     grade = 'F'
 
-print(f'Score: {score}, Grade: {grade}')
-# Expected Output: Score: 85, Grade: B
+assert grade == 'B'  # 85 >= 70 is also true, but the 'B' branch came first
 
 # 4. Nested if statements
 # _________________________
 age = 20
 has_permission = True
 
-print('\nChecking access based on age and permission:')
-# Expected Output: Checking access based on age and permission:
 if age >= 18:
-    print('You are an adult.')
-    # Expected Output: You are an adult.
     if has_permission:
-        print('You have permission to enter.')
-        # Expected Output: You have permission to enter.
+        access = 'adult with permission: may enter'
     else:
-        print('You do not have permission to enter.')
+        access = 'adult without permission: may not enter'
 else:
-    print('You are not an adult.')
-    
+    access = 'not an adult'
+
+assert access == 'adult with permission: may enter'
+
+print('All checks passed.')

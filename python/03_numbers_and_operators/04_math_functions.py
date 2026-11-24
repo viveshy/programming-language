@@ -5,9 +5,10 @@ Functions:
     - round(x)    : Rounds a number to the nearest integer.
     - abs(x)      : Returns the absolute value of a number.
 
-Methods: 
-    - math.floor(x) : Returns the largest integer less than or equal to x.
-    - math.ceil(x)  : Returns the smallest integer greater than or equal to x.
+Methods:
+    - math.floor(x)   : Returns the largest integer less than or equal to x.
+    - math.ceil(x)    : Returns the smallest integer greater than or equal to x.
+    - math.isclose(a, b) : Checks whether two floats are equal apart from a tiny error.
 
 Note: Math methods are imported from the module 'math'.
 """
@@ -18,37 +19,38 @@ import math
 positive_num = 5.36
 negative_num = -8.34
 
-# Math functions
+# 1. ROUND
 # __________________
-# round()
-print(f'Round of {positive_num} is: {round(positive_num)}')
-# Expected Output: Round of 5.36 is: 5
+assert round(positive_num) == 5
+assert round(negative_num) == -8
 
-print(f'Round of {negative_num} is: {round(negative_num)}')
-# Expected Output: Round of -8.34 is: -8
+# A second argument keeps that many digits after the decimal point
+assert round(5.367, 2) == 5.37
 
+# Exact halves go to the EVEN neighbour, not always up
+assert round(2.5) == 2
+assert round(3.5) == 4
+assert round(-2.5) == -2
 
-# abs()
-print(f'\nAbsolute value of {positive_num} is: {abs(positive_num)}')
-# Expected Output: Absolute value of 5.36 is: 5.36
+# 2.675 is stored as 2.67499999..., so it rounds down
+assert round(2.675, 2) == 2.67
 
-print(f'Absolute value of {negative_num} is: {abs(negative_num)}')
-# Expected Output: Absolute value of -8.34 is: 8.34
+# 2. ABS
+# __________________
+assert abs(positive_num) == 5.36
+assert abs(negative_num) == 8.34
 
+# 3. CEIL AND FLOOR
+# __________________
+# ceil goes up to the next whole number, floor goes down
+assert math.ceil(positive_num) == 6
+assert math.ceil(negative_num) == -8  # "up" from -8.34 is -8
+assert math.floor(positive_num) == 5
+assert math.floor(negative_num) == -9  # "down" from -8.34 is -9
 
-# Math methods
-# ________________
+# 4. ISCLOSE
+# __________________
+# The safe way to compare floats (see 01_arithmetic_operators.py, section 6)
+assert math.isclose(0.1 + 0.2, 0.3)
 
-# math.ceil()
-print(f'\nCeiling of {positive_num} is: {math.ceil(positive_num)}')
-# Expected Output: Ceiling of 5.36 is: 6
-
-print(f'Ceiling of {negative_num} is: {math.ceil(negative_num)}')
-# Expected Output: Ceiling of -8.34 is: -8
-
-# math.floor()
-print(f'\nFloor of {positive_num} is: {math.floor(positive_num)}')
-# Expected Output: Floor of 5.36 is: 5
-
-print(f'Floor of {negative_num} is: {math.floor(negative_num)}')
-# Expected Output: Floor of -8.34 is: -9
+print('All checks passed.')

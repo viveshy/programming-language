@@ -1,31 +1,45 @@
-# Tuple unpacking
+"""
+Unpacking puts the items of a tuple or list into separate variables in one line.
+The number of variables on the left must match the number of items.
+"""
+
+# 1. TUPLE UNPACKING
+# ____________________
 coordinates = (1, 3, 8)
 
-# Unpacking a tuple into individual variables
 x, y, z = coordinates
-print(f"Coordinates: x={x}, y={y}, z={z}")
-# Expected Output: Coordinates: x=1, y=3, z=8
+assert (x, y, z) == (1, 3, 8)
+assert x == 1 and y == 3 and z == 8
 
-# Tuple unpacking can be used to swap values
+# 2. SWAPPING TWO VALUES
+# ____________________
+# The right side is built first as a tuple (b, a), then unpacked into a, b
 a = 10
 b = 20
-print(f"Before swapping: a={a}, b={b}")
-# Expected Output: Before swapping: a=10, b=20
-
 a, b = b, a
-print(f"After swapping: a={a}, b={b}")
-# Expected Output: After swapping: a=20, b=10
+assert (a, b) == (20, 10)
 
-# List unpacking
+# 3. LIST UNPACKING
+# ____________________
 dimensions = [40, 50, 60]
 
-# Unpacking a list into individual variables
 length, breadth, height = dimensions
-print(f"Dimensions: length={length}, breadth={breadth}, height={height}")
-# Expected Output: Dimensions: length=40, breadth=50, height=60
+assert (length, breadth, height) == (40, 50, 60)
 
-# Demonstrating unpacking with excess values
+# 4. IGNORING VALUES WITH _
+# ____________________
 more_dimensions = [40, 50, 60, 70]
 length, breadth, height, _ = more_dimensions  # Using _ to ignore the last value
-print(f"More Dimensions: length={length}, breadth={breadth}, height={height}")
-# Expected Output: More Dimensions: length=40, breadth=50, height=60
+assert height == 60
+
+# 5. COLLECTING THE REST WITH *
+# ____________________
+first, *rest = [1, 2, 3, 4]
+assert first == 1
+assert rest == [2, 3, 4]  # the starred name always gets a list
+
+*start, last = [1, 2, 3, 4]
+assert start == [1, 2, 3]
+assert last == 4
+
+print('All checks passed.')

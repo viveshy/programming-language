@@ -1,43 +1,51 @@
 """
 The built-in functions used for explicit conversion are:
 - int()
-- float() 
+- float()
 - bool()
 - str()
+
+input() always gives you a string, so these conversions are how you turn
+what the user typed into numbers. Below, plain strings stand in for what
+input() would return.
 """
 
 # int() conversion
 # ________________
-birth_year = input('Enter your birth year:\n')
-# User input example: 1990
+birth_year = '1990'  # what input() returns when the user types 1990
 
-# Convert the input string to integer and calculate age
-age = 2024 - int(birth_year)
+assert birth_year + '10' == '199010'  # still a string: + joins the text
+assert int(birth_year) + 10 == 2000  # converted to int: + adds
+assert int('-42') == -42
 
-print('Your age is:', age)
-# Expected Output: Your age is: 34
+# int() on a float cuts off the decimal part. It does not round.
+assert int(3.99) == 3
+assert int(-3.99) == -3
 
 # float() conversion
 # ________________
 discount = 10
 
-# Convert integer to float
-print('Discount in float is:', float(discount))
-# Expected Output: Discount in float is: 10.0
+assert float(discount) == 10.0
+assert float('2.5') == 2.5
 
 # str() conversion
 # ________________
 visible_number = 31
 
-# Convert integer to string
-print('Integer to string is:', str(visible_number))
-# Expected Output: Integer to string is: 31
+assert str(visible_number) == '31'
+assert str(visible_number) + '!' == '31!'
 
 # bool() conversion
 # ________________
-is_monday = input('Is it Monday today? Enter True or False:\n')
-# User input example: True
+# bool() of a string only checks whether the string is empty.
+# Any non-empty string is True, even the string 'False'.
+is_monday = 'False'  # what input() returns when the user types False
 
-# Convert input string to boolean
-print('Today is Monday:', bool(is_monday))
-# Expected Output: Today is Monday: True (Note: Any non-empty string returns True)
+assert bool(is_monday) is True
+assert bool('') is False
+
+# To read a True/False answer, compare the text instead:
+assert (is_monday == 'True') is False
+
+print('All checks passed.')

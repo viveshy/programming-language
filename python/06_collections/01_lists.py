@@ -12,39 +12,34 @@ Each item in a list has an assigned index value, starting from 0. You can access
 - Use negative indexing: `list_name[-index]` (counts from the end)
 """
 
-# Creating a list of integers
+# 1. CREATING LISTS
+# ___________________
 numbers = [1, 2, 3, 4]
-print("\nList of numbers:", numbers)
-# Expected Output: List of numbers: [1, 2, 3, 4]
-
-# Creating a heterogeneous list
 mixed = [1, 'apple', 3.14, True]
-print("\nHeterogeneous list:", mixed)
-# Expected Output: Heterogeneous list: [1, 'apple', 3.14, True]
 
-# Accessing elements using positive indexing
-print('\nFirst element (index 0):', numbers[0])
-# Expected Output: First element (index 0): 1
+assert len(numbers) == 4
+assert len(mixed) == 4
+assert len([]) == 0  # an empty list
 
-print('Second element (index 1):', numbers[1])
-# Expected Output: Second element (index 1): 2
+# 2. INDEXING
+# ___________________
+assert numbers[0] == 1  # First element (index 0)
+assert numbers[1] == 2  # Second element (index 1)
+assert numbers[-1] == 4  # Last element
+assert numbers[-2] == 3  # Second last element
 
-# Accessing elements using negative indexing
-print('\nLast element (index -1):', numbers[-1])
-# Expected Output: Last element (index -1): 4
+# 3. SLICING
+# ___________________
+# Like strings: the start index is included, the end index is not
+assert numbers[1:3] == [2, 3]
+assert numbers[:2] == [1, 2]
+assert numbers[2:] == [3, 4]
+assert numbers[:] == [1, 2, 3, 4]  # a copy of the whole list
 
-print('Second last element (index -2):', numbers[-2])
-# Expected Output: Second last element (index -2): 3
+# 4. CHANGING AN ITEM
+# ___________________
+# Unlike strings, lists can be changed in place
+numbers[0] = 10
+assert numbers == [10, 2, 3, 4]
 
-# Slicing the list
-print('\nSlice from index 1 to 3:', numbers[1:3])
-# Expected Output: Slice from index 1 to 3: [2, 3]
-
-print('Slice from the beginning to index 2:', numbers[:2])
-# Expected Output: Slice from the beginning to index 2: [1, 2]
-
-print('Slice from index 2 to the end:', numbers[2:])
-# Expected Output: Slice from index 2 to the end: [3, 4]
-
-print('Complete list:', numbers[:])
-# Expected Output: Complete list: [1, 2, 3, 4]
+print('All checks passed.')

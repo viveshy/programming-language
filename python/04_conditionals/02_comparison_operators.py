@@ -6,6 +6,9 @@ In this section, we will learn about the following comparison operators:
 4. Less than (<)
 5. Greater than or equal to (>=)
 6. Less than or equal to (<=)
+
+A comparison produces True or False, so it can go straight into an if
+statement, or into an assert.
 """
 
 # Define some sample variables
@@ -15,54 +18,42 @@ c = 15
 
 # 1. Equal to (==)
 # ___________________
-print(f'Checking if {a} is equal to {b}:')
-# Expected Output: Checking if 15 is equal to 10:
-if a == b:
-    print(f'{a} is equal to {b}')
-else:
-    print(f'{a} is not equal to {b}')
-    # Expected Output: 15 is not equal to 10
+assert (a == b) is False
+assert (a == c) is True
 
 # 2. Not equal to (!=)
 # ______________________
-print(f'\nChecking if {a} is not equal to {c}:')
-# Expected Output: Checking if 15 is not equal to 15:
-if a != c:
-    print(f'{a} is not equal to {c}')
-else:
-    print(f'{a} is equal to {c}')
-    # Expected Output: 15 is equal to 15
+assert (a != c) is False
+assert (a != b) is True
 
 # 3. Greater than (>)
 # ______________________
-print(f'\nChecking if {a} is greater than {b}:')
-# Expected Output: Checking if 15 is greater than 10:
-if a > b:
-    print(f'{a} is greater than {b}')
-    # Expected Output: 15 is greater than 10
-else:
-    print(f'{a} is not greater than {b}')
+assert (a > b) is True
 
 # 4. Less than (<)
 # ___________________
-print(f'\nChecking if {b} is less than {a}:')
-if b < a:
-    print(f'{b} is less than {a}')
-else:
-    print(f'{b} is not less than {a}')
+assert (b < a) is True
 
 # 5. Greater than or equal to (>=)
 # _________________________________
-print(f'\nChecking if {a} is greater than or equal to {c}:')
-if a >= c:
-    print(f'{a} is greater than or equal to {c}')
-else:
-    print(f'{a} is less than {c}')
+assert (a >= c) is True  # equal counts
 
 # 6. Less than or equal to (<=)
 # _______________________________
-print(f'\nChecking if {b} is less than or equal to {a}:')
-if b <= a:
-    print(f'{b} is less than or equal to {a}')
+assert (b <= a) is True
+
+# 7. Using a comparison in an if statement
+# _______________________________
+if a > b:
+    bigger = a
 else:
-    print(f'{b} is greater than {a}')
+    bigger = b
+
+assert bigger == 15
+
+# 8. Chained comparisons
+# _______________________________
+# Python lets you chain comparisons: b < a <= c means (b < a) and (a <= c)
+assert (b < a <= c) is True
+
+print('All checks passed.')

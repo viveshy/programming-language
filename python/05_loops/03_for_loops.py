@@ -5,46 +5,85 @@ In this section, we will learn about the following concepts related to for loops
 3. Nested for loops
 4. For loop with else clause
 5. For loop with enumerate
+6. For loop with zip
 """
+
+fruits = ['apple', 'banana', 'cherry']
 
 # 1. Basic for loop
 # ______________________
-fruits = ['apple', 'banana', 'cherry']
-
-print('Iterating over a list of fruits:')
-# Expected Output: Iterating over a list of fruits:
+seen = []
 for fruit in fruits:
     print(fruit)
-    # Expected Output: apple, banana, cherry (each on new line)
+    seen.append(fruit)
+
+assert seen == ['apple', 'banana', 'cherry']
 
 # 2. For loop with range
 # ______________________
-print('\nUsing range to iterate over numbers:')
-# Expected Output: Using range to iterate over numbers:
+squares = []
 for i in range(5):
-    print(f'Current number: {i}')
-    # Expected Output: Current number: 0, 1, 2, 3, 4 (each on new line)
+    squares.append(i * i)
+
+assert squares == [0, 1, 4, 9, 16]
 
 # 3. Nested for loops
 # _________________________
-print('\nNested for loops to create a multiplication table:')
+# The inner loop runs completely for every step of the outer loop
+products = []
 for i in range(1, 4):  # Outer loop for rows
     for j in range(1, 4):  # Inner loop for columns
-        print(f'{i} x {j} = {i * j}')
-    print('---')  # Separator for rows
+        products.append(i * j)
+
+assert products == [1, 2, 3, 2, 4, 6, 3, 6, 9]
 
 # 4. For loop with else clause
 # ___________________________
-print('\nUsing a for loop with an else clause:')
-for number in range(3):
-    print(f'Number: {number}')
+# Like while/else: the else block runs only if the loop did not hit a break.
+# A common use is searching: break when found, else means "not found".
+found = None
+for number in [3, 8, 11]:
+    if number % 2 == 0:
+        found = number
+        break
 else:
-    print('Loop completed without encountering a break statement.')
+    found = 'no even number'
+
+assert found == 8
+
+for number in [3, 5, 11]:
+    if number % 2 == 0:
+        found = number
+        break
+else:
+    found = 'no even number'
+
+assert found == 'no even number'
 
 # 5. For loop with enumerate
 # ___________________________
-print('\nUsing a for loop with enumerate:')
-# Expected Output: Using a for loop with enumerate:
+# enumerate gives (index, item) pairs
+pairs = []
 for index, fruit in enumerate(fruits):
-    print(f'Index {index}: {fruit}')
-    # Expected Output: Index 0: apple, Index 1: banana, Index 2: cherry
+    pairs.append((index, fruit))
+
+assert pairs == [(0, 'apple'), (1, 'banana'), (2, 'cherry')]
+
+# start=1 makes the counting begin at 1
+assert list(enumerate(fruits, start=1)) == [(1, 'apple'), (2, 'banana'), (3, 'cherry')]
+
+# 6. For loop with zip
+# ___________________________
+# zip walks through two (or more) lists side by side
+prices = [40, 20, 60]
+menu = []
+for fruit, price in zip(fruits, prices):
+    menu.append(f'{fruit}: {price}')
+
+assert menu == ['apple: 40', 'banana: 20', 'cherry: 60']
+assert list(zip(['a', 'b'], [1, 2])) == [('a', 1), ('b', 2)]
+
+# zip stops at the end of the SHORTER list
+assert list(zip(['a', 'b', 'c'], [1, 2])) == [('a', 1), ('b', 2)]
+
+print('All checks passed.')

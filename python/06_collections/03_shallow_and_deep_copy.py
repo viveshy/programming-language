@@ -5,117 +5,71 @@ To create a true copy of a list, you can use:
 1. Shallow Copy: Creates a new list with references to the same elements as the original list.
 2. Deep Copy: Creates a new list with copies of the original elements, including nested lists.
 
+`a is b` is True when a and b are the very same object, not just equal ones.
 """
 
 import copy
 
-# SHALLOW COPY
-#_______________
-print(f'Shallow copy in flat list:')
-# Expected Output: Shallow copy in flat list:
-shallow_original_list_flat = [1, 2, 3, 4]
+# 1. ASSIGNMENT IS NOT A COPY
+# _____________________________
+original = [1, 2, 3, 4]
+same_list = original  # both names now point to ONE list
 
-shallow_copied_list_flat = shallow_original_list_flat.copy()
+assert same_list is original
+same_list[0] = 99
+assert original == [99, 2, 3, 4]  # changed through the other name
 
-print(f'\nChange in original list {shallow_original_list_flat}: shallow_original_list_flat[0] = 8 ')
-# Expected Output: Change in original list [1, 2, 3, 4]: shallow_original_list_flat[0] = 8
+# 2. SHALLOW COPY OF A FLAT LIST
+# _____________________________
+original = [1, 2, 3, 4]
+shallow = original.copy()  # a new list
 
-shallow_original_list_flat[0] = 8
-print(f'Orginal list: ', shallow_original_list_flat)
-# Expected Output: Orginal list:  [8, 2, 3, 4]
+assert shallow == original
+assert shallow is not original
 
-print(f'Copied list:', shallow_copied_list_flat)
-# Expected Output: Copied list: [1, 2, 3, 4]
+# Changing the copy does not touch the original...
+shallow[0] = 8
+assert shallow == [8, 2, 3, 4]
+assert original == [1, 2, 3, 4]
 
-print(f'\nChange in copied list {shallow_copied_list_flat}: shallow_original_list_flat[2] = 100 ')
-# Expected Output: Change in copied list [1, 2, 3, 4]: shallow_original_list_flat[2] = 100
+# ...and changing the original does not touch the copy
+original[2] = 100
+assert original == [1, 2, 100, 4]
+assert shallow == [8, 2, 3, 4]
 
-shallow_original_list_flat[2] = 100
-print(f'Orginal list: ', shallow_original_list_flat)
-# Expected Output: Orginal list:  [8, 2, 100, 4]
+# 3. SHALLOW COPY OF A NESTED LIST
+# _____________________________
+# A shallow copy is a new OUTER list, but the inner lists are shared
+original = [[1, 2, 3, 4], ['x', 'y', 'z']]
+shallow = original.copy()
 
-print(f'Copied list:', shallow_copied_list_flat)
-# Expected Output: Copied list: [1, 2, 3, 4]
+assert shallow is not original
+assert shallow[0] is original[0]  # the same inner list
 
+# Changing an inner list through the copy shows up in the original
+shallow[0][2] = 'a'
+assert shallow == [[1, 2, 'a', 4], ['x', 'y', 'z']]
+assert original == [[1, 2, 'a', 4], ['x', 'y', 'z']]
 
-print(f'\nShallow copy in nested list:')
-# Expected Output: Shallow copy in nested list:
-shallow_original_list_nested = [[1, 2, 3, 4], ['x','y','z']]
+# Replacing a whole inner list in the copy does not affect the original
+shallow[1] = ['new']
+assert original == [[1, 2, 'a', 4], ['x', 'y', 'z']]
 
-shallow_copied_list_nested = shallow_original_list_nested.copy()
+# 4. DEEP COPY OF A NESTED LIST
+# _____________________________
+# A deep copy copies the inner lists too, so nothing is shared
+original = [[1, 2, 3, 4], ['x', 'y', 'z']]
+deep = copy.deepcopy(original)
 
-print(f'\nChange in original list {shallow_original_list_nested}: shallow_original_list_nested[0][2] = "a"')
-# Expected Output: Change in original list [[1, 2, 3, 4], ['x', 'y', 'z']]: shallow_original_list_nested[0][2] = "a"
+assert deep == original
+assert deep[0] is not original[0]
 
-shallow_original_list_nested[0][2] = 'a'
-print(f'Orginal list: ', shallow_original_list_nested)
-# Expected Output: Orginal list:  [[1, 2, 'a', 4], ['x', 'y', 'z']]
+deep[0][2] = 'a'
+assert deep == [[1, 2, 'a', 4], ['x', 'y', 'z']]
+assert original == [[1, 2, 3, 4], ['x', 'y', 'z']]  # unchanged
 
-print(f'Copied list:', shallow_copied_list_nested)
-# Expected Output: Copied list: [[1, 2, 'a', 4], ['x', 'y', 'z']]
+original[1][2] = 77
+assert original == [[1, 2, 3, 4], ['x', 'y', 77]]
+assert deep == [[1, 2, 'a', 4], ['x', 'y', 'z']]  # unchanged
 
-print(f'\nChange in copied list {shallow_copied_list_nested}: shallow_original_list_nested[1][2] = 77')
-# Expected Output: Change in copied list [[1, 2, 'a', 4], ['x', 'y', 'z']]: shallow_original_list_nested[1][2] = 77
-
-shallow_original_list_nested[1][2] = 77
-print(f'Orginal list: ', shallow_original_list_nested)
-# Expected Output: Orginal list:  [[1, 2, 'a', 4], ['x', 'y', 77]]
-
-print(f'Copied list:', shallow_copied_list_nested)
-# Expected Output: Copied list: [[1, 2, 'a', 4], ['x', 'y', 77]]
-
-
-# DEEP COPY
-#_______________
-print(f'Deep copy in flat list:')
-# Expected Output: Deep copy in flat list:
-deep_original_list_flat = [1, 2, 3, 4]
-
-deep_copied_list_flat = copy.deepcopy(deep_original_list_flat)
-
-print(f'\nChange in original list {deep_original_list_flat}: deep_original_list_flat[0] = 8 ')
-# Expected Output: Change in original list [1, 2, 3, 4]: deep_original_list_flat[0] = 8
-
-deep_original_list_flat[0] = 8
-print(f'Orginal list: ', deep_original_list_flat)
-# Expected Output: Orginal list:  [8, 2, 3, 4]
-
-print(f'Copied list:', deep_copied_list_flat)
-# Expected Output: Copied list: [1, 2, 3, 4]
-
-print(f'\nChange in copied list {deep_copied_list_flat}: deep_original_list_flat[2] = 100 ')
-# Expected Output: Change in copied list [1, 2, 3, 4]: deep_original_list_flat[2] = 100
-
-deep_original_list_flat[2] = 100
-print(f'Orginal list: ', deep_original_list_flat)
-# Expected Output: Orginal list:  [8, 2, 100, 4]
-
-print(f'Copied list:', deep_copied_list_flat)
-# Expected Output: Copied list: [1, 2, 3, 4]
-
-
-print(f'\nDeep copy in nested list:')
-# Expected Output: Deep copy in nested list:
-deep_original_list_nested = [[1, 2, 3, 4], ['x','y','z']]
-
-deep_copied_list_nested = copy.deepcopy(deep_original_list_nested)
-
-print(f'\nChange in original list {deep_original_list_nested}: deep_original_list_nested[0][2] = "a"')
-# Expected Output: Change in original list [[1, 2, 3, 4], ['x', 'y', 'z']]: deep_original_list_nested[0][2] = "a"
-
-deep_original_list_nested[0][2] = 'a'
-print(f'Orginal list: ', deep_original_list_nested)
-# Expected Output: Orginal list:  [[1, 2, 'a', 4], ['x', 'y', 'z']]
-
-print(f'Copied list:', deep_copied_list_nested)
-# Expected Output: Copied list: [[1, 2, 3, 4], ['x', 'y', 'z']]
-
-print(f'\nChange in copied list {deep_copied_list_nested}: deep_original_list_nested[1][2] = 77')
-# Expected Output: Change in copied list [[1, 2, 3, 4], ['x', 'y', 'z']]: deep_original_list_nested[1][2] = 77
-
-deep_original_list_nested[1][2] = 77
-print(f'Orginal list: ', deep_original_list_nested)
-# Expected Output: Orginal list:  [[1, 2, 'a', 4], ['x', 'y', 77]]
-
-print(f'Copied list:', deep_copied_list_nested)
-# Expected Output: Copied list: [[1, 2, 3, 4], ['x', 'y', 'z']]
+print('All checks passed.')
