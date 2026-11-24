@@ -22,7 +22,7 @@ assert list(range(1, 10, 2)) == [1, 3, 5, 7, 9]
 # 4. Using range() with a negative step to count down
 assert list(range(5, 0, -1)) == [5, 4, 3, 2, 1]
 
-# 5. Empty ranges: start is already past stop
+# 5. Empty ranges: start is not before stop, so there is nothing to count
 assert list(range(0)) == []
 assert list(range(5, 2)) == []  # counting up from 5 never reaches 2
 

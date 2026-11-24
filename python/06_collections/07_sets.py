@@ -81,7 +81,7 @@ assert not ({1, 4} <= {1, 2, 3})
 # 7. WHICH VALUES CAN GO IN A SET
 # ___________________
 # Like dict keys, set items must be values that cannot change ("hashable")
-assert {(1, 2), (1, 2)} == {(1, 2)}  # tuples are fine
+assert {(1, 2), (1, 2)} == {(1, 2)}  # tuples of hashable items are fine
 
 try:
     bad = {[1, 2]}  # a list can change, so it cannot go in a set

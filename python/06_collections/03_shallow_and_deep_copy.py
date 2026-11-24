@@ -1,5 +1,5 @@
 """
-In Python, when you assign a list to a variable, it creates a reference to the original list. This means that both the original and copied lists point to the same list in memory.
+In Python, assigning a list to another variable does not copy it: both names then refer to the same list in memory.
 
 To create a true copy of a list, you can use:
 1. Shallow Copy: Creates a new list with references to the same elements as the original list.
@@ -18,6 +18,17 @@ same_list = original  # both names now point to ONE list
 assert same_list is original
 same_list[0] = 99
 assert original == [99, 2, 3, 4]  # changed through the other name
+
+# += on a list changes that list in place, so every name for it sees the change.
+# b = b + [3] builds a NEW list and points only b at it.
+a = [1]
+b = a
+b += [2]
+assert a == [1, 2]
+
+b = b + [3]
+assert b == [1, 2, 3]
+assert a == [1, 2]  # a still refers to the old list
 
 # 2. SHALLOW COPY OF A FLAT LIST
 # _____________________________

@@ -1,13 +1,16 @@
 """
 Augmented assignment operators are a shorthand way to perform a binary operation and assign the result back to one of the operands.
 
-Examples of augmented assignment operators in Python are:
-    - Addition (+=): x += y is equivalent to x = x + y
-    - Subtraction (-=): x -= y is equivalent to x = x - y
-    - Multiplication (*=): x *= y is equivalent to x = x * y
-    - Division (/=): x /= y is equivalent to x = x / y
-    - Floor division (//=): x //= y is equivalent to x = x // y
-    - Modulus (%=): x %= y is equivalent to x = x % y
+For numbers, each one is shorthand for the longer form:
+    - Addition (+=): x += y is the same as x = x + y
+    - Subtraction (-=): x -= y is the same as x = x - y
+    - Multiplication (*=): x *= y is the same as x = x * y
+    - Division (/=): x /= y is the same as x = x / y
+    - Floor division (//=): x //= y is the same as x = x // y
+    - Modulus (%=): x %= y is the same as x = x % y
+
+(For a list, += changes the list in place instead: see
+06_collections/03_shallow_and_deep_copy.py.)
 """
 
 x = 10

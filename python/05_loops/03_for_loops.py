@@ -62,7 +62,8 @@ assert found == 'no even number'
 
 # 5. For loop with enumerate
 # ___________________________
-# enumerate gives (index, item) pairs
+# enumerate gives (index, item) pairs. (index, item) is a tuple, and
+# `for index, fruit in ...` unpacks it; both are covered in 06_collections.
 pairs = []
 for index, fruit in enumerate(fruits):
     pairs.append((index, fruit))

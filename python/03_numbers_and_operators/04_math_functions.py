@@ -1,16 +1,14 @@
 """
 In this section, we will learn about the following Math functions and methods:
 
-Functions:
+Built-in functions (always available):
     - round(x)    : Rounds a number to the nearest integer.
     - abs(x)      : Returns the absolute value of a number.
 
-Methods:
+Functions from the math module (they need `import math` first):
     - math.floor(x)   : Returns the largest integer less than or equal to x.
     - math.ceil(x)    : Returns the smallest integer greater than or equal to x.
     - math.isclose(a, b) : Checks whether two floats are equal apart from a tiny error.
-
-Note: Math methods are imported from the module 'math'.
 """
 
 import math
@@ -42,11 +40,12 @@ assert abs(negative_num) == 8.34
 
 # 3. CEIL AND FLOOR
 # __________________
-# ceil goes up to the next whole number, floor goes down
+# ceil rounds up to a whole number and floor rounds down; a whole number stays as it is
 assert math.ceil(positive_num) == 6
 assert math.ceil(negative_num) == -8  # "up" from -8.34 is -8
 assert math.floor(positive_num) == 5
 assert math.floor(negative_num) == -9  # "down" from -8.34 is -9
+assert math.ceil(5.0) == 5
 
 # 4. ISCLOSE
 # __________________

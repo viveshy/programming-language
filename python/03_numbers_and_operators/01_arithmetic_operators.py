@@ -4,13 +4,15 @@ The following arithmetic operations are covered here:
 2. Subtraction: -
 3. Multiplication: *
 4. Division: /, //, and %
-   - / => quotient with remainder (always gives a float)
+   - / => the exact quotient, including any fraction (always gives a float)
    - // => only quotient (rounded down)
    - % => remainder
 5. Power: **
 
-Floats are stored in binary and are often a tiny bit off (section 6), so float
-results here are checked with round(value, digits) instead of an exact ==.
+Floats are stored in binary and are often a tiny bit off (section 6), so a
+float result with a fractional part is checked with round(value, digits)
+instead of an exact ==. A float that is a whole number, like 5.0 or 2.0, is
+stored exactly, so == is safe for it.
 """
 
 # Define integer and float variables

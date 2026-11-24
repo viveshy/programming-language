@@ -1,6 +1,7 @@
 """
 Unpacking puts the items of a tuple or list into separate variables in one line.
-The number of variables on the left must match the number of items.
+The number of variables on the left must equal the number of items, unless one
+of them is starred (*rest, section 5).
 """
 
 # 1. TUPLE UNPACKING

@@ -42,4 +42,10 @@ assert numbers[:] == [1, 2, 3, 4]  # a copy of the whole list
 numbers[0] = 10
 assert numbers == [10, 2, 3, 4]
 
+# 5. JOINING AND REPEATING LISTS
+# ___________________
+assert [1, 2] + [3] == [1, 2, 3]  # + joins two lists into a new one
+assert [0] * 3 == [0, 0, 0]  # * repeats the items (used to build grids in 10_comprehensions.py)
+assert [1, 2] * 2 == [1, 2, 1, 2]
+
 print('All checks passed.')

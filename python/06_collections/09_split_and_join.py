@@ -9,7 +9,7 @@ called is inserted in between each given string.
 
 Key Points:
 - The separator is the string that will be inserted between each element
-- The iterable can be a list, tuple, or any sequence of strings
+- The iterable can be a list, a tuple, or anything else you can loop over that gives strings
 - All elements in the iterable must be strings (convert numbers first)
 - join() is more efficient than concatenating strings with + in loops
 """
@@ -82,7 +82,7 @@ lines = ['First line', 'Second line', 'Third line']
 multi_line = '\n'.join(lines)
 print(multi_line)
 assert multi_line == 'First line\nSecond line\nThird line'
-assert multi_line.split('\n') == lines  # split undoes join
+assert multi_line.split('\n') == lines  # split undoes the join here, because no line contains '\n'
 
 # Reversing a string
 assert ''.join(reversed('python')) == 'nohtyp'

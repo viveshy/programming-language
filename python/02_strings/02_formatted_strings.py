@@ -1,6 +1,6 @@
 """
 Formatted strings in Python start with the prefix 'f'.
-Any string value can be dynamically added within curly braces {}.
+Any value (a string, a number, or an expression) can be added within curly braces {}.
 """
 
 # 1. VALUES IN CURLY BRACES

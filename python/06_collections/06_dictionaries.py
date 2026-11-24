@@ -83,8 +83,8 @@ assert list(fresh) == ['soup', 'pie', 'salad']  # list(d) gives the keys
 
 # 8. WHICH VALUES CAN BE KEYS
 # __________________________
-# Keys must be values that cannot change ("hashable"): str, int, float, tuple.
-# A tuple key is handy for grid positions.
+# Keys must be values that cannot change ("hashable"): str, int, float, and a
+# tuple whose items are all hashable too. A tuple key is handy for grid positions.
 grid = {(0, 1): 'wall'}
 assert grid[(0, 1)] == 'wall'
 
