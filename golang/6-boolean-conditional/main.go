@@ -27,7 +27,7 @@ func main() {
 			break
 		}
 
-		fmt.Printf("Tha value at position %v is %v \n", index, value)
+		fmt.Printf("The value at position %v is %v \n", index, value)
 	}
 
 }

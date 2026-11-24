@@ -20,7 +20,7 @@ func main() {
 	// find length of array
 	fmt.Println(len(agesOne))
 
-	/*________SLICES (they uses array undr the hood)_______*/
+	/*________SLICES (they use an array under the hood)_______*/
 	var scores = []int{1, 2, 3, 4, 5}
 	fmt.Println(scores, len(scores))
 
@@ -28,15 +28,18 @@ func main() {
 
 	fmt.Println(scores, len(scores))
 
-	// ranges in slice.
-	// format of range [a:b] where position a is inclusive and b is exclusive
-	rangeOne := scores[1:3]
-	rangeTwo := scores[2:]
-	rangeThree := scores[:3]
-	fmt.Println(rangeOne)
-	fmt.Println(rangeTwo)
-	fmt.Println(rangeThree)
+	// Slice expressions: scores[a:b] takes positions a up to, but not including, b
+	sliceOne := scores[1:3]
+	sliceTwo := scores[2:]
+	sliceThree := scores[:3]
+	fmt.Println(sliceOne)
+	fmt.Println(sliceTwo)
+	fmt.Println(sliceThree)
 
-	rangeThree = append(rangeThree, 77)
-	fmt.Println(rangeThree)
+	// A slice expression does not copy anything: sliceThree shares the array under scores.
+	// That array still has room, so append writes 77 into it and overwrites scores[3]
+	// (and the same element seen through sliceTwo).
+	sliceThree = append(sliceThree, 77)
+	fmt.Println(sliceThree)       // [1 2 3 77]
+	fmt.Println(scores, sliceTwo) // [1 2 3 77 5 85] [3 77 5 85]
 }

@@ -14,18 +14,18 @@ func (customerBill bill) format() string {
 	var total float64 = 0
 
 	for key, value := range customerBill.items {
-		// -25v will make the variable 25 characters long by spacing towards right
-		// +25 will keep the spacing towards left
+		// %-25v pads the value to 25 characters, adding the spaces on the right (left-aligned)
+		// %25v (no minus) adds the spaces on the left instead (right-aligned)
 		formattedString += fmt.Sprintf("%-25v ...$%v \n", key+":", value)
 		total += value
 	}
 
 	total += customerBill.tip
 
+	// tip
+	formattedString += fmt.Sprintf("%-25v ...$%.2f \n", "tip:", customerBill.tip)
 	// total
-	formattedString += fmt.Sprintf("%-25v ...$%0.2f \n", "tip:", customerBill.tip)
-	// total
-	formattedString += fmt.Sprintf("%-25v ...$%0.2f \n", "total:", total)
+	formattedString += fmt.Sprintf("%-25v ...$%.2f \n", "total:", total)
 
 	return formattedString
 }
@@ -37,7 +37,9 @@ func (customerBill *bill) updateTip(tip float64) {
 }
 
 // add item to the bill
-func (customerBill bill) addItem(name string, price float64) {
+// Pointer receiver, like updateTip. A value receiver would only work here because
+// items is a map; a change to name or tip made that way would be lost.
+func (customerBill *bill) addItem(name string, price float64) {
 	customerBill.items[name] = price
 }
 

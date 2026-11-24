@@ -29,5 +29,5 @@ func main() {
 	names := []string{"Batman", "Wayne", "Dark Knight"}
 	cycleNames(names, sayGreeting)
 
-	fmt.Printf("The area of circle is %0.2f", areaOfCircle(4.5))
+	fmt.Printf("The area of circle is %.2f\n", areaOfCircle(4.5))
 }

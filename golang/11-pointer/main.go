@@ -25,6 +25,6 @@ func main() {
 
 	updateName(ptr)
 
-	fmt.Print(*ptr)
+	fmt.Println(*ptr) // *ptr and name are the same string
 	fmt.Println(name)
 }

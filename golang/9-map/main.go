@@ -15,7 +15,9 @@ func main() {
 	fmt.Println(menu)
 	fmt.Println(menu["soup"])
 
-	// In map we have key instead of index
+	// In map we have key instead of index.
+	// A range over a map visits the keys in a random order that changes from run to run.
+	// (fmt.Println sorts the keys when it prints a whole map, so those prints look ordered.)
 	for key, value := range menu {
 		fmt.Printf("Key: %v, Value: %v \n", key, value)
 	}
@@ -23,13 +25,13 @@ func main() {
 	// update item in map
 	menu["soup"] = 8.99
 
-	// appending item in map
+	// add a new item to the map (maps have no append: you just set a new key)
 	menu["juice"] = 12.44
 
 	fmt.Println(menu)
 
 	// delete item in map
 	delete(menu, "juice")
-	fmt.Print(menu)
+	fmt.Println(menu)
 
 }

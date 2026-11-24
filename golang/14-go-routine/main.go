@@ -15,7 +15,7 @@ func main() {
 
 	// find number of thread set
 	fmt.Println("Threads ", runtime.GOMAXPROCS(-1))
-	for i := 0 ; i<10;i++{
+	for i := 0; i < 10; i++ {
 		wg.Add(2)
 		m.RLock()
 		go sayHello()
@@ -26,13 +26,13 @@ func main() {
 	wg.Wait()
 }
 
-func sayHello(){
+func sayHello() {
 	fmt.Printf("Hello # %v \n", counter)
 	m.RUnlock()
 	wg.Done()
 }
 
-func increment(){
+func increment() {
 	counter++
 	m.Unlock()
 	wg.Done()
