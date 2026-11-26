@@ -1,84 +1,151 @@
 """
-The following arithmetic operations are covered here:
-1. Addition: +
-2. Subtraction: -
-3. Multiplication: *
-4. Division: /, //, and %
-   - / => the exact quotient, including any fraction (always gives a float)
-   - // => only quotient (rounded down)
-   - % => remainder
-5. Power: **
+Arithmetic operators do maths on numbers.
 
-Floats are stored in binary and are often a tiny bit off (section 6), so a
-float result with a fractional part is checked with round(value, digits)
-instead of an exact ==. A float that is a whole number, like 5.0 or 2.0, is
-stored exactly, so == is safe for it.
+    ┌──────────┬────────────────────┬──────────────┬────────────────────────┐
+    │ Operator │ Name               │ Example      │ Note                   │
+    ├──────────┼────────────────────┼──────────────┼────────────────────────┤
+    │ +        │ add                │ 7 + 2 == 9   │                        │
+    │ -        │ subtract           │ 7 - 2 == 5   │                        │
+    │ *        │ multiply           │ 7 * 2 == 14  │                        │
+    │ /        │ divide             │ 7 / 2 == 3.5 │ always a float         │
+    │ //       │ floor division     │ 7 // 2 == 3  │ quotient, rounded down │
+    │ %        │ remainder (modulo) │ 7 % 2 == 1   │ what is left over      │
+    │ **       │ power              │ 7 ** 2 == 49 │                        │
+    └──────────┴────────────────────┴──────────────┴────────────────────────┘
+
+Why it matters: contest problems are mostly maths on integers, and // and %
+are in almost every solution.
+
+We will cover:
+1. + - *: integers and floats
+2. /: division always gives a float
+3. //: floor division
+4. %: the remainder
+5. // and % with negative numbers
+6. **: power
+7. Floats are not exact: 0.1 + 0.2 != 0.3
 """
 
-# Define integer and float variables
-int_num1 = 10
-int_num2 = 3
-float_num1 = 10.33
-float_num2 = 3.5
 
-# 1. ADDITION
-# _________________
-assert int_num1 + int_num2 == 13  # int + int = int
-assert round(float_num1 + float_num2, 2) == 13.83  # float + float = float
-assert round(int_num1 + float_num1, 2) == 20.33  # int + float = float
-assert type(int_num1 + float_num1) is float
+# ┌────────────────────────────────────────────────────────────┐
+# │ 1. + - *: INTEGERS AND FLOATS                              │
+# └────────────────────────────────────────────────────────────┘
+# With two integers, + - * give an integer.
 
-# 2. SUBTRACTION
-# _________________
-assert int_num1 - int_num2 == 7
-assert round(float_num1 - float_num2, 2) == 6.83
-assert round(int_num1 - float_num1, 2) == -0.33  # the raw result is -0.33000000000000007
+assert 10 + 3 == 13
+assert 10 - 3 == 7
+assert 10 * 3 == 30
 
-# 3. MULTIPLICATION
-# _________________
-assert int_num1 * int_num2 == 30
-assert round(float_num1 * float_num2, 3) == 36.155
-assert round(int_num1 * float_num1, 1) == 103.3
+# With a float on either side, the answer is a float.
 
-# 4. DIVISION
-# _________________
-# / always gives a float, even when the division is exact
-assert int_num1 / 2 == 5.0
-assert type(int_num1 / 2) is float
-assert round(int_num1 / int_num2, 4) == 3.3333
-assert round(float_num1 / float_num2, 4) == 2.9514
-assert round(int_num1 / float_num1, 4) == 0.9681
+assert 10 + 0.5 == 10.5
+assert type(10 + 0.5) is float
+assert 2.5 * 4 == 10.0
 
-# // keeps only the quotient: int // int = int, anything with a float gives a float
-assert int_num1 // int_num2 == 3
-assert type(int_num1 // int_num2) is int
-assert float_num1 // float_num2 == 2.0
-assert int_num1 // float_num1 == 0.0
 
-# % gives the remainder
-assert int_num1 % int_num2 == 1
-assert round(float_num1 % float_num2, 2) == 3.33
-assert int_num1 % float_num1 == 10.0
+# ┌────────────────────────────────────────────────────────────┐
+# │ 2. /: DIVISION ALWAYS GIVES A FLOAT                        │
+# └────────────────────────────────────────────────────────────┘
+# / gives the full answer, fraction included. It is always a float, even when
+# the division is exact.
 
-# With negative numbers, // rounds DOWN (towards minus infinity), not towards zero,
-# and % takes the sign of the right-hand number.
-assert -7 // 2 == -4  # -3.5 rounded down is -4
-assert -7 % 2 == 1  # because (-4 * 2) + 1 == -7
+assert 7 / 2 == 3.5
+assert 10 / 2 == 5.0
+assert type(10 / 2) is float
+
+# A float with no fraction part, like 5.0, is stored exactly, so == is safe.
+# A fraction that never ends, like 3.333..., is cut short: use round().
+
+assert round(10 / 3, 4) == 3.3333
+
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 3. //: FLOOR DIVISION                                      │
+# └────────────────────────────────────────────────────────────┘
+# a // b divides and rounds DOWN to an integer. This is the quotient: how many
+# times b fits into a.
+
+assert 7 // 2 == 3  # 3.5 rounded down
+assert 10 // 3 == 3
+
+# Two integers give an integer. With a float on either side, // still rounds
+# down, but the answer is a float.
+
+assert type(10 // 3) is int
+assert 10.33 // 3.5 == 2.0
+assert 10 // 10.33 == 0.0
+
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 4. %: THE REMAINDER                                        │
+# └────────────────────────────────────────────────────────────┘
+# a % b is what is left over after a // b. Say it "a mod b" (short for modulo).
+
+assert 7 % 2 == 1  # 7 == 3 * 2 + 1
+assert 6 % 3 == 0  # nothing left: 3 divides 6 exactly
+assert 3 % 5 == 3  # 5 fits 0 times, so all of 3 is left over
+
+# // and % always fit together: a == (a // b) * b + a % b.
+
+a = 17
+b = 5
+assert (a // b) * b + a % b == a  # 3 * 5 + 2 == 17
+
+# % works on floats too, but contests use it on integers.
+
+assert round(10.33 % 3.5, 2) == 3.33
+
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 5. // AND % WITH NEGATIVE NUMBERS                          │
+# └────────────────────────────────────────────────────────────┘
+# // always rounds DOWN, towards minus infinity. For a negative answer, down
+# means away from zero: -3.5 becomes -4, not -3.
+# (A minus sign in front goes first: -7 // 2 is (-7) // 2. More in
+# 03_operator_precedence.py.)
+
+assert -7 // 2 == -4
 assert 7 // -2 == -4
 
-# 5. POWER
-# _________________
-assert int_num1 ** int_num2 == 1000
-assert round(float_num1 ** float_num2, 2) == 3542.84
-assert round(int_num1 ** float_num1) == 21379620895
+# % then keeps a == (a // b) * b + a % b true, so the remainder takes the sign
+# of the right-hand number b.
 
-# Python ints never overflow: they grow as big as needed
+assert -7 % 2 == 1  # (-4) * 2 + 1 == -7
+assert 7 % -2 == -1  # (-4) * (-2) - 1 == 7
+
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 6. **: POWER                                               │
+# └────────────────────────────────────────────────────────────┘
+# a ** b multiplies b copies of a: 2 ** 3 == 2 * 2 * 2.
+
+assert 2 ** 3 == 8
+assert 10 ** 3 == 1000
+
+# A float on either side gives a float. ** 0.5 is the square root.
+
+assert 2.5 ** 2 == 6.25
+assert 9 ** 0.5 == 3.0
+
+# Integers have no limit in Python, so a big power keeps every digit.
+
 assert 2 ** 100 == 1267650600228229401496703205376
 
-# 6. FLOATS ARE NOT EXACT
-# _________________
-# 0.1 and 0.2 cannot be stored exactly in binary, so their sum is a tiny bit off
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 7. FLOATS ARE NOT EXACT: 0.1 + 0.2 != 0.3                  │
+# └────────────────────────────────────────────────────────────┘
+# A float is stored in binary. In binary, 0.1 is a fraction that never ends, the
+# way 1/3 = 0.333... never ends in decimal. A float keeps only 53 binary digits
+# (01_variables_and_input/03_type_conversion.py, section 4), so it stores the
+# nearest value it can, which is a tiny bit off.
+
 assert 0.1 + 0.2 != 0.3
+assert 0.1 + 0.2 == 0.30000000000000004
+
+# Round before you compare.
+
 assert round(0.1 + 0.2, 2) == 0.3
+
 
 print('All checks passed.')

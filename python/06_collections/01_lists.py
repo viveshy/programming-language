@@ -1,51 +1,92 @@
 """
-Lists in Python can be created using square brackets [] and can contain items of different data types.
+A list holds many values in order, inside square brackets: [1, 2, 3].
 
-CREATING A LIST:
-To create a list, simply write a set of items within square brackets, separated by commas. For example:
-- A list of integers: `numbers = [1, 2, 3, 4]`
-- A heterogeneous list: `mixed = [1, 'apple', 3.14, True]`
+    ┌─────────────────┬───────────────────────────────────────────────────┐
+    │ Code            │ Meaning                                           │
+    ├─────────────────┼───────────────────────────────────────────────────┤
+    │ numbers[0]      │ the first item (indexes start at 0)               │
+    │ numbers[-1]     │ the last item                                     │
+    │ numbers[1:3]    │ a slice: a new list of the items at index 1 and 2 │
+    │ numbers[0] = 10 │ change an item in place                           │
+    └─────────────────┴───────────────────────────────────────────────────┘
 
-ACCESSING LIST ELEMENTS:
-Each item in a list has an assigned index value, starting from 0. You can access items using their index:
-- Use positive indexing: `list_name[index]`
-- Use negative indexing: `list_name[-index]` (counts from the end)
+Why it matters: every array in a problem is a list in Python. You read into it,
+index it and change it in almost every solution.
+
+We will cover:
+1. Creating a list
+2. Indexing
+3. Slicing
+4. Changing an item
+5. Joining and repeating lists
 """
 
-# 1. CREATING LISTS
-# ___________________
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 1. CREATING A LIST                                         │
+# └────────────────────────────────────────────────────────────┘
+# Write the items inside [], with commas between them. len() counts the items.
+
 numbers = [1, 2, 3, 4]
-mixed = [1, 'apple', 3.14, True]
 
 assert len(numbers) == 4
-assert len(mixed) == 4
 assert len([]) == 0  # an empty list
 
-# 2. INDEXING
-# ___________________
-assert numbers[0] == 1  # First element (index 0)
-assert numbers[1] == 2  # Second element (index 1)
-assert numbers[-1] == 4  # Last element
-assert numbers[-2] == 3  # Second last element
+# One list can hold items of different types.
 
-# 3. SLICING
-# ___________________
-# Like strings: the start index is included, the end index is not
+mixed = [1, 'apple', 3.14, True]
+assert len(mixed) == 4
+
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 2. INDEXING                                                │
+# └────────────────────────────────────────────────────────────┘
+# Each item has an index. The first is 0, the second is 1, and so on.
+# Negative indexes count from the end: -1 is the last item.
+
+assert numbers[0] == 1
+assert numbers[1] == 2
+
+assert numbers[-1] == 4
+assert numbers[-2] == 3
+
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 3. SLICING                                                 │
+# └────────────────────────────────────────────────────────────┘
+# A slice works like a string slice: the start index is included, the end is
+# not. Leave out start to begin at 0, or end to go to the end.
+
 assert numbers[1:3] == [2, 3]
 assert numbers[:2] == [1, 2]
 assert numbers[2:] == [3, 4]
-assert numbers[:] == [1, 2, 3, 4]  # a copy of the whole list
 
-# 4. CHANGING AN ITEM
-# ___________________
-# Unlike strings, lists can be changed in place
+# numbers[:] is a new list with every item: a copy
+# (more in 03_shallow_and_deep_copy.py).
+
+assert numbers[:] == [1, 2, 3, 4]
+
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 4. CHANGING AN ITEM                                        │
+# └────────────────────────────────────────────────────────────┘
+# Unlike a string, a list can be changed in place: assign to an index.
+
 numbers[0] = 10
 assert numbers == [10, 2, 3, 4]
 
-# 5. JOINING AND REPEATING LISTS
-# ___________________
-assert [1, 2] + [3] == [1, 2, 3]  # + joins two lists into a new one
-assert [0] * 3 == [0, 0, 0]  # * repeats the items (used to build grids in 10_comprehensions.py)
+numbers[-1] = 40
+assert numbers == [10, 2, 3, 40]
+
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 5. JOINING AND REPEATING LISTS                             │
+# └────────────────────────────────────────────────────────────┘
+# + joins two lists into a new one. * repeats the items.
+
+assert [1, 2] + [3] == [1, 2, 3]
 assert [1, 2] * 2 == [1, 2, 1, 2]
+assert [0] * 3 == [0, 0, 0]
+
 
 print('All checks passed.')

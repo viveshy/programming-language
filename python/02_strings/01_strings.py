@@ -1,70 +1,126 @@
 """
-Strings in Python can be written using:
-- double quotes
-- single quotes
-- triple quotes
+A string (str) is text: a sequence of characters inside quotes.
 
-FOR DOUBLE AND SINGLE QUOTES:
-If we use double quotes for strings, we can use single quotes in the middle of the string to be part of the string and vice-versa.
+    ┌────────────┬────────────────────────────────────────┐
+    │ Written as │ Quotes                                 │
+    ├────────────┼────────────────────────────────────────┤
+    │ 'jeans'    │ single quotes                          │
+    │ "jeans"    │ double quotes                          │
+    │ '''...'''  │ triple quotes: text over several lines │
+    └────────────┴────────────────────────────────────────┘
 
-FOR TRIPLE QUOTES:
-We use triple quotes to define multi-line strings. For example, an email is often written using triple quotes in Python.
+Why it matters: names, words and every line of contest input are strings.
+Many interview problems, like palindromes and anagrams, are about them.
+
+We will cover:
+1. Single and double quotes
+2. Triple quotes: text over several lines
+3. Joining with + and repeating with *
+4. Indexing: one character
+5. Slicing: a piece of the string
+6. Slicing with a step: s[::-1]
 """
 
-# 1. SINGLE AND DOUBLE QUOTES
-# _____________________________
-# Both kinds of quotes make exactly the same string
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 1. SINGLE AND DOUBLE QUOTES                                │
+# └────────────────────────────────────────────────────────────┘
+# Single and double quotes make exactly the same string.
+
 assert 'jeans' == "jeans"
 
-# Double quotes let a single quote sit inside the string...
+# To put one kind of quote inside, wrap the string in the other kind.
+
 research_paper = "Google's Pipe Syntax in SQL"
-# ...and single quotes let double quotes sit inside it
 medium_blog = 'Standard SQL will be empowered by "GoogleSQL"'
 
-# A backslash also lets you put the same quote inside
-assert 'Google\'s' == "Google's"
+# Or put a backslash before the quote: \' and \" are quotes inside the string.
 
-# 2. TRIPLE QUOTES
-# _____________________________
+assert research_paper == 'Google\'s Pipe Syntax in SQL'
+assert medium_blog == "Standard SQL will be empowered by \"GoogleSQL\""
+
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 2. TRIPLE QUOTES: TEXT OVER SEVERAL LINES                  │
+# └────────────────────────────────────────────────────────────┘
+# Triple quotes (''' or """) let a string run over several lines.
+
 email = '''Hi Bruce,
 
-Thank you for the invite. I look forward to meeting you at the event.
+Thank you for the invite.
 
 Best regards,
 John'''
 
-print(email)
+# It is an ordinary string. Each line break is the newline character, \n.
+# \n counts as one character (len() counts characters: 03_string_methods.py).
 
-# A triple-quoted string is an ordinary string with newline characters (\n) in it
-assert email == 'Hi Bruce,\n\nThank you for the invite. I look forward to meeting you at the event.\n\nBest regards,\nJohn'
+assert email == 'Hi Bruce,\n\nThank you for the invite.\n\nBest regards,\nJohn'
+assert len('a\nb') == 3
 
-"""
-Accessing strings: Strings are indexed like lists and can be accessed in a similar fashion.
 
-It is noted that the start index is inclusive and the end index is exclusive.
-"""
+# ┌────────────────────────────────────────────────────────────┐
+# │ 3. JOINING WITH + AND REPEATING WITH *                     │
+# └────────────────────────────────────────────────────────────┘
+# + joins two strings into a new one. * repeats a string.
 
-# 3. INDEXING AND SLICING
-# _____________________________
+assert 'Mission' + ' Impossible' == 'Mission Impossible'
+assert 'ab' * 3 == 'ababab'
+assert '-' * 5 == '-----'
+
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 4. INDEXING: ONE CHARACTER                                 │
+# └────────────────────────────────────────────────────────────┘
+# Each character has an index: its position. Counting starts at 0.
+# s[i] gives the character at index i.
+
 title = 'What is pipe syntax in SQL?'
 
-# string_name[index]  => the character at that index (counting starts at 0)
 assert title[0] == 'W'
+assert title[1] == 'h'
 
-# string_name[-index]  => counts from the end
+# Negative indexes count from the end: -1 is the last character.
+
 assert title[-1] == '?'
+assert title[-2] == 'L'
 
-# string_name[start_index:end_index] => end_index itself is not included
-assert title[0:10] == 'What is pi'
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 5. SLICING: A PIECE OF THE STRING                          │
+# └────────────────────────────────────────────────────────────┘
+# s[start:end] gives the characters from start up to end.
+# start is included. end is NOT included.
+
+assert title[0:4] == 'What'
 assert title[1:-1] == 'hat is pipe syntax in SQL'
 
-# string_name[start_index:] => from start_index through the end of the string
-assert title[2:] == 'at is pipe syntax in SQL?'
+# Leave out start to begin at 0. Leave out end to go to the end.
+# s[:] is all of it.
 
-# string_name[:end_index] => from index 0 up to (not including) end_index
-assert title[:6] == 'What i'
-
-# string_name[:] => all the characters
+assert title[:4] == 'What'
+assert title[8:] == 'pipe syntax in SQL?'
 assert title[:] == 'What is pipe syntax in SQL?'
+
+# A slice s[start:end] has end - start characters.
+
+assert len(title[8:12]) == 4  # 'pipe'
+
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 6. SLICING WITH A STEP: S[::-1]                            │
+# └────────────────────────────────────────────────────────────┘
+# A third number is the step: s[start:end:step].
+# s[::2] takes every 2nd character.
+
+word = 'abcdef'
+
+assert word[::2] == 'ace'
+assert word[1::2] == 'bdf'
+
+# A step of -1 walks backwards, so s[::-1] is the string reversed.
+
+assert word[::-1] == 'fedcba'
+
 
 print('All checks passed.')

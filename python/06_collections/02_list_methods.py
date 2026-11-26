@@ -1,75 +1,135 @@
 """
-We will discuss the following list methods and functions:
+Functions and methods read a list or change it. A method is a function you
+call with a dot after the value: a.append(4).
 
-Functions:
-    1) len(list) => Returns the length of the list
-    2) sorted(list) => Returns a NEW sorted list (the original is unchanged)
-    3) min(list), max(list), sum(list) => Smallest item, largest item, total
+    ┌────────────────┬───────────────────────────────────────────────┐
+    │ Code           │ What it does                                  │
+    ├────────────────┼───────────────────────────────────────────────┤
+    │ len(a)         │ how many items                                │
+    │ min(a), max(a) │ the smallest and the largest item             │
+    │ sum(a)         │ all the items added up                        │
+    │ sorted(a)      │ a NEW sorted list (a is unchanged)            │
+    │ a.append(x)    │ add x at the end                              │
+    │ a.pop()        │ remove the last item and give it back         │
+    │ a.pop(i)       │ remove the item at index i and give it back   │
+    │ a.insert(i, x) │ put x at index i                              │
+    │ a.count(x)     │ how many times x appears                      │
+    │ a.sort()       │ sort the list itself                          │
+    │ a.reverse()    │ reverse the list itself                       │
+    │ x in a         │ True if x is in a (an operator, not a method) │
+    └────────────────┴───────────────────────────────────────────────┘
 
-Methods:
-    1) .append(elem) => Adds an element to the end of the list
-    2) .pop() => Removes and returns the last element
-    3) elem in list => Checks if an element is present in the list
-    4) .count(elem) => Counts occurrences of an element
-    5) .sort() => Sorts the list itself, in ascending order
-    6) .reverse() => Reverses the list itself
+Why it matters: almost every solution builds a list with append, sorts it or
+adds it up. Some of them are slow on long lists, which can mean Time Limit
+Exceeded.
+
+We will cover:
+1. len(), min(), max(), sum()
+2. append() and pop(): the end of the list
+3. pop(i) and insert(i, x): slow at the front
+4. in and count(): is it there, and how often?
+5. sorted() vs sort()
+6. reverse()
 """
 
-sample_list = [5, 3, 8, 1, 2]
 
-# 1. len()
-# _______________
-assert len(sample_list) == 5
+# ┌────────────────────────────────────────────────────────────┐
+# │ 1. LEN(), MIN(), MAX(), SUM()                              │
+# └────────────────────────────────────────────────────────────┘
+# These functions read the list and give back one value. The list is unchanged.
 
-# 2. .append(elem)
-# _______________
-sample_list.append(6)
-assert sample_list == [5, 3, 8, 1, 2, 6]
+nums = [5, 3, 8, 1, 2]
 
-# 3. .pop()
-# _______________
-popped_element = sample_list.pop()
-assert popped_element == 6
-assert sample_list == [5, 3, 8, 1, 2]
+assert len(nums) == 5
+assert min(nums) == 1
+assert max(nums) == 8
+assert sum(nums) == 19
 
-# 4. elem in list
-# _______________
-assert (3 in sample_list) is True
-assert (7 in sample_list) is False
 
-# 5. .count(elem)
-# _______________
-assert sample_list.count(1) == 1
+# ┌────────────────────────────────────────────────────────────┐
+# │ 2. APPEND() AND POP(): THE END OF THE LIST                 │
+# └────────────────────────────────────────────────────────────┘
+# .append(x) adds x at the end. .pop() removes the last item and gives it back.
+# Both change the list itself, and both are fast however long the list is.
+
+stack = [1, 2]
+stack.append(3)
+assert stack == [1, 2, 3]
+
+top = stack.pop()
+assert top == 3
+assert stack == [1, 2]
+
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 3. POP(I) AND INSERT(I, X): SLOW AT THE FRONT              │
+# └────────────────────────────────────────────────────────────┘
+# .pop(i) removes the item at index i. .insert(i, x) puts x at index i.
+
+letters = ['a', 'b', 'c', 'd']
+
+assert letters.pop(1) == 'b'
+assert letters == ['a', 'c', 'd']
+
+letters.insert(0, 'z')
+assert letters == ['z', 'a', 'c', 'd']
+
+assert letters.pop(0) == 'z'  # pop(0) removes the first item
+assert letters == ['a', 'c', 'd']
+
+# A list keeps its items side by side in memory. Removing or inserting at
+# index i shifts every item after i by one place:
+# - pop() at the end shifts nothing: fast.
+# - pop(0) and insert(0, x) shift every other item: slow on a long list.
+
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 4. IN AND COUNT(): IS IT THERE, AND HOW OFTEN?             │
+# └────────────────────────────────────────────────────────────┘
+# in is an operator, like + or ==. x in a gives True or False.
+# .count(x) is a method: how many times x appears.
+
+assert (3 in nums) is True
+assert (7 in nums) is False
+
 assert [1, 2, 1, 1].count(1) == 3
+assert nums.count(7) == 0  # missing: 0, not an error
 
-# 6. sorted() vs .sort()
-# _______________
-# sorted() gives back a new sorted list and leaves the original alone
-assert sorted(sample_list) == [1, 2, 3, 5, 8]
-assert sample_list == [5, 3, 8, 1, 2]
 
-# reverse=True sorts from largest to smallest
-assert sorted(sample_list, reverse=True) == [8, 5, 3, 2, 1]
+# ┌────────────────────────────────────────────────────────────┐
+# │ 5. SORTED() VS SORT()                                      │
+# └────────────────────────────────────────────────────────────┘
+# sorted(a) gives back a NEW sorted list and leaves a alone.
 
-# key=len sorts by each item's length instead of the item itself
+assert sorted(nums) == [1, 2, 3, 5, 8]
+assert nums == [5, 3, 8, 1, 2]  # unchanged
+
+# reverse=True sorts from largest to smallest.
+# key=len sorts by each item's length instead of the item itself.
+
+assert sorted(nums, reverse=True) == [8, 5, 3, 2, 1]
+
 words = ['banana', 'kiwi', 'apple']
 assert sorted(words) == ['apple', 'banana', 'kiwi']  # alphabetical
 assert sorted(words, key=len) == ['kiwi', 'apple', 'banana']  # shortest first
 
-# .sort() changes the list itself and returns None
-result = sample_list.sort()
-assert result is None
-assert sample_list == [1, 2, 3, 5, 8]
+# a.sort() sorts the list itself. It takes the same reverse= and key=.
 
-# 7. .reverse()
-# _______________
-sample_list.reverse()
-assert sample_list == [8, 5, 3, 2, 1]
+nums.sort()
+assert nums == [1, 2, 3, 5, 8]
 
-# 8. min(), max(), sum()
-# _______________
-assert min(sample_list) == 1
-assert max(sample_list) == 8
-assert sum(sample_list) == 19
+# a.sort() gives back None, not the sorted list.
+
+assert nums.sort() is None
+
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 6. REVERSE()                                               │
+# └────────────────────────────────────────────────────────────┘
+# a.reverse() reverses the list itself. Like sort(), it gives back None.
+
+nums.reverse()
+assert nums == [8, 5, 3, 2, 1]
+
 
 print('All checks passed.')

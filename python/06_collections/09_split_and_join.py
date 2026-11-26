@@ -1,90 +1,119 @@
 """
-split() and join() convert between a string and a list of strings:
-- text.split(separator)  : string -> list of strings
-- separator.join(items)  : list of strings -> string
+split() and join() convert between a string and a list of strings.
 
-join() takes an iterable as an argument and returns a string that is the
-concatenation of the strings in the iterable. The string whose method is
-called is inserted in between each given string.
+    ┌──────────────────────┬────────────┬─────────────────────────────────┐
+    │ Code                 │ Gives      │ What it does                    │
+    ├──────────────────────┼────────────┼─────────────────────────────────┤
+    │ 'a b'.split()        │ ['a', 'b'] │ cut at spaces                   │
+    │ 'a,b'.split(',')     │ ['a', 'b'] │ cut at each ','                 │
+    │ ' '.join(['a', 'b']) │ 'a b'      │ glue together, with ' ' between │
+    └──────────────────────┴────────────┴─────────────────────────────────┘
 
-Key Points:
-- The separator is the string that will be inserted between each element
-- The iterable can be a list, a tuple, or anything else you can loop over that gives strings
-- All elements in the iterable must be strings (convert numbers first)
-- join() is more efficient than concatenating strings with + in loops
+Why it matters: contest input arrives as lines of text, and answers go out as
+text. split() reads a line of numbers. join() prints a list on one line.
+
+We will cover:
+1. split() with no argument
+2. split(sep) with a separator
+3. A line of text -> numbers with map(int, ...)
+4. join()
+5. Joining numbers with map(str, ...)
+6. More join examples
 """
 
-# 1. SPLIT
-# __________
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 1. SPLIT() WITH NO ARGUMENT                                │
+# └────────────────────────────────────────────────────────────┘
+# text.split() cuts a string into words. It gives back a list of strings.
+
 assert 'Python is awesome'.split() == ['Python', 'is', 'awesome']
 
-# With no argument, split() cuts on any run of spaces, tabs or newlines,
-# and ignores them at the ends
-assert 'a  b'.split() == ['a', 'b']
+# With no argument, it cuts at any run of spaces, tabs (\t) or newlines (\n),
+# and ignores them at both ends.
+
+assert 'a   b'.split() == ['a', 'b']
 assert '  3 1\t2\n'.split() == ['3', '1', '2']
 
-# With a separator, every single separator counts, so empty pieces can appear
-assert 'a,,b'.split(',') == ['a', '', 'b']
-assert '2026-11-24'.split('-') == ['2026', '11', '24']
 
-# 2. TURNING A LINE OF TEXT INTO NUMBERS
-# __________
-# A line typed as '3 1 2' arrives as ONE string. split() cuts it into pieces,
-# and map(int, pieces) applies int() to every piece.
-line = '3 1 2'
+# ┌────────────────────────────────────────────────────────────┐
+# │ 2. SPLIT(SEP) WITH A SEPARATOR                             │
+# └────────────────────────────────────────────────────────────┘
+# text.split(sep) cuts at every sep. Each single sep counts, so two in a row
+# leave an empty piece '' between them.
+
+assert '2026-11-24'.split('-') == ['2026', '11', '24']
+assert 'a,,b'.split(',') == ['a', '', 'b']
+
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 3. A LINE OF TEXT -> NUMBERS WITH MAP(INT, ...)            │
+# └────────────────────────────────────────────────────────────┘
+# A line typed as 3 1 2 arrives as ONE string. split() cuts it into pieces.
+# map(int, pieces) applies int() to every piece. list() collects the results.
+
+line = '3 1 2'  # what input() gives for the line 3 1 2
 numbers = list(map(int, line.split()))
 assert numbers == [3, 1, 2]
 
-# map can also feed unpacking directly
+# When you know how many numbers the line holds, unpack them straight away.
+
 a, b, c = map(int, line.split())
 assert a + b + c == 6
 
-# 3. JOIN
-# __________
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 4. JOIN()                                                  │
+# └────────────────────────────────────────────────────────────┘
+# sep.join(items) glues the strings in items together, with sep between each
+# two. join is called on the separator, not on the list.
+
 words = ['Python', 'is', 'awesome']
 
 assert ' '.join(words) == 'Python is awesome'
 assert ', '.join(words) == 'Python, is, awesome'
-assert '-'.join(words) == 'Python-is-awesome'
-assert ''.join(words) == 'Pythonisawesome'
+assert ''.join(words) == 'Pythonisawesome'  # nothing between
 
-# 4. JOINING NUMBERS
-# __________
-# join only accepts strings...
-try:
-    '-'.join([1, 2, 3])
-    worked = True
-except TypeError:
-    worked = False
+# items can be anything you can loop over that gives strings: a tuple, or a
+# string (its characters).
 
-assert worked is False
+assert '-'.join(('a', 'b')) == 'a-b'
+assert '-'.join('abc') == 'a-b-c'
 
-# ...so turn each number into a string first with map(str, ...)
-numbers = [1, 2, 3, 4, 5]
-assert '-'.join(map(str, numbers)) == '1-2-3-4-5'
 
-# The usual way to print a list of numbers on one line, separated by spaces
-assert ' '.join(map(str, [3, 1, 2])) == '3 1 2'
+# ┌────────────────────────────────────────────────────────────┐
+# │ 5. JOINING NUMBERS WITH MAP(STR, ...)                      │
+# └────────────────────────────────────────────────────────────┘
+# join() accepts strings only. map(str, numbers) turns each number into a
+# string first.
 
-# 5. MORE JOIN EXAMPLES
-# __________
-# Characters of a string
+numbers = [1, 2, 3]
+assert '-'.join(map(str, numbers)) == '1-2-3'
+assert ' '.join(map(str, numbers)) == '1 2 3'
+
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ 6. MORE JOIN EXAMPLES                                      │
+# └────────────────────────────────────────────────────────────┘
+# list(text) splits a string into its characters. ''.join() glues them back.
+
 chars = list('hello')
 assert chars == ['h', 'e', 'l', 'l', 'o']
 assert ''.join(chars) == 'hello'
 
-# Building file paths
-path_parts = ['home', 'user', 'documents', 'file.txt']
-assert '/'.join(path_parts) == 'home/user/documents/file.txt'
+# '/'.join() builds a path. '\n'.join() puts each item on its own line.
 
-# Join with newlines for multi-line output
-lines = ['First line', 'Second line', 'Third line']
-multi_line = '\n'.join(lines)
-print(multi_line)
-assert multi_line == 'First line\nSecond line\nThird line'
-assert multi_line.split('\n') == lines  # split undoes the join here, because no line contains '\n'
+assert '/'.join(['home', 'user', 'file.txt']) == 'home/user/file.txt'
 
-# Reversing a string
+lines = ['First line', 'Second line']
+text = '\n'.join(lines)
+assert text == 'First line\nSecond line'
+assert text.split('\n') == lines  # split undoes the join
+
+# reversed(text) gives the characters from last to first. ''.join() makes them
+# a string again.
+
 assert ''.join(reversed('python')) == 'nohtyp'
+
 
 print('All checks passed.')
